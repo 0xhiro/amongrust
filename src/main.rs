@@ -54,16 +54,16 @@ fn main() {
     let mut imposters = 0;
 
     if usage == 1 {
-        for i in files {
-            let imp = populate_file(i.clone());
+        for path in files {
+            let imp = populate_file(&path);
             imposters += imp;
         }
 
         println!("found {imposters} imposters in your code");
     } else {
-        for i in files {
+        for path in files {
             loop {
-                let imp = remove_imposters(i.clone());
+                let imp = remove_imposters(&path);
 
                 if imp == 0 {
                     break;
@@ -76,8 +76,8 @@ fn main() {
 }
 
 // OMG another comment!!!
-fn populate_file(path: String) -> u32 {
-    let old_data = std::fs::read_to_string(&path).unwrap();
+fn populate_file(path: &str) -> u32 {
+    let old_data = std::fs::read_to_string(path).unwrap();
     let new_data: &mut Vec<u8> = &mut Vec::new();
 
     let mut imposters = 0;
@@ -110,12 +110,12 @@ fn populate_file(path: String) -> u32 {
 }
 
 // ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ ඞ
-fn remove_imposters(path: String) -> u32 {
+fn remove_imposters(path: &str) -> u32 {
     let mut deleting: bool = false;
 
     let mut imposters = 0;
 
-    let old_data = std::fs::read_to_string(&path).unwrap();
+    let old_data = std::fs::read_to_string(path).unwrap();
     let new_data: &mut Vec<u8> = &mut Vec::new();
 
     for (index, character) in old_data.as_bytes().iter().enumerate() {
